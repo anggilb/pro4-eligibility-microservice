@@ -6,6 +6,7 @@ import com.example.games_service_api.commons.dtos.GameRequest;
 import com.example.games_service_api.commons.entities.GameModel;
 import com.example.games_service_api.repositories.GameRepository;
 import com.example.games_service_api.service.GameService;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,8 +17,9 @@ public class GameServiceImpl implements GameService {
 
     private final StreamBridge streamBridge;
 
-    public GameServiceImpl(GameRepository gameRepository) {
+    public GameServiceImpl(GameRepository gameRepository, StreamBridge streamBridge) {
         this.gameRepository = gameRepository;
+        this.streamBridge = streamBridge;
     }
 
     @Override

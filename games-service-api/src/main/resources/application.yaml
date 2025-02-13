@@ -14,7 +14,7 @@ spring:
     stream:
       default-binder: kafka_default
       bindings:
-        gameBinding-out-0:
+        gameCreatedBinding-out-0:
           destination: event.game-created
           binder: kafka_default
           useNativeDecoding: true
@@ -24,21 +24,22 @@ spring:
           environment:
             spring:
               cloud:
-                kafka:
-                  default:
-                    consumer:
-                      configuration:
-                        session.timeout.ms: 10000
-                        max.poll.records: 10
-                    producer:
-                      compressionType: gzip
-                      configuration:
-                        max.request.size: 10000
-                  binder:
-                    autoAddPartitions: true
-                    autoCreateTopics: true
-                    requiredAcks: -1
-                    minPartitionsCount: 3
-                    replicationFactor: 1
-                    serdeError: logAndContinue
-                    broker: localhost:9092
+                stream:
+                  kafka:
+                    default:
+                      consumer:
+                        configuration:
+                          session.timeout.ms: 10000
+                          max.poll.records: 10
+                      producer:
+                        compressionType: gzip
+                        configuration:
+                          max.request.size: 100000
+                    binder:
+                      autoAddPartitions: true
+                      autoCreateTopics: true
+                      requiredAcks: -1
+                      minPartitionCount: 3
+                      replicationFactor: 1
+                      serdeError: logAndContinue
+                      broker: localhost:9092
