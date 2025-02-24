@@ -26,6 +26,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse createUser(UserRequest userRequest) {
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
+            throw new IllegalArgumentException("El email ya está registrado");
+        }
+
         return Optional.of(userRequest)
                 .map(this::mapToEntity)
                 .map(userRepository::save)
